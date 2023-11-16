@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using DataAccess.Abstract;
@@ -44,7 +45,7 @@ namespace DataAccess.Concrete.InMemory
             //LINQ - Language Integrated Query
             //Lambda
             Product productToDelete =
-                _products.SingleOrDefault(p => p.Id == product.Id); //finds one element, usually id searches
+                _products.SingleOrDefault(p => p.Id == product.Id); //finds one element, usually id searchs
 
             _products.Remove(productToDelete);
         }
@@ -54,15 +55,13 @@ namespace DataAccess.Concrete.InMemory
             return _products;
         }
 
-        Product productToUpdate;
-
         public void Update(Product product)
         {
             Product productToUpdate = _products.SingleOrDefault(p => p.Id == product.Id);
             productToUpdate.ProductName = product.ProductName;
             productToUpdate.CategoryId = product.CategoryId;
             productToUpdate.UnitInStock = product.UnitInStock;
-            productToUpdate.UnitPrice = product.UnitPrice;
+            productToUpdate.UnitPrice = product.UnitPrice; 
         }
 
         public List<Product> GetAllByCategory(int categoryId)
@@ -70,5 +69,14 @@ namespace DataAccess.Concrete.InMemory
             return _products.Where(p => p.CategoryId == categoryId).ToList();
         }
 
+        public List<Product> GetAll(Expression<Func<Product, bool>> filter = null)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Product Get(Expression<Func<Product, bool>> filter)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -7,7 +7,7 @@ using Entities.Abstract;
 
 namespace Entities.Concrete
 {
-    public class Category: IEntitity
+    public class Category: IEntity
     {
         //Dont Let Any Class Naked
         public int CategoryId { get; set; }
