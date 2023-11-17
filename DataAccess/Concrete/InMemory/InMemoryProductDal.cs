@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using DataAccess.Abstract;
 using Entities.Concrete;
+using Entities.DTOs;
 
 namespace DataAccess.Concrete.InMemory
 {
@@ -13,18 +14,18 @@ namespace DataAccess.Concrete.InMemory
     {
         List<Product> _products;
 
-        public InMemoryProductDal()
-        {
-            _products = new List<Product>()
-            {
-                new Product { Id = 1, CategoryId = 1, ProductName = "Glass", UnitPrice = 15, UnitInStock = 15 },
-                new Product { Id = 2, CategoryId = 2, ProductName = "Camera", UnitPrice = 500, UnitInStock = 3 },
-                new Product { Id = 3, CategoryId = 2, ProductName = "Telephone", UnitPrice = 1500, UnitInStock = 2 },
-                new Product { Id = 4, CategoryId = 2, ProductName = "Keyboard", UnitPrice = 150, UnitInStock = 65 },
-                new Product { Id = 5, CategoryId = 2, ProductName = "Mouse", UnitPrice = 85, UnitInStock = 1 },
+        //public InMemoryProductDal()
+        //{
+        //    _products = new List<Product>()
+        //    {
+        //        new Product { Id = 1, CategoryId = 1, ProductName = "Glass", UnitPrice = 15, UnitInStock = 15 },
+        //        new Product { Id = 2, CategoryId = 2, ProductName = "Camera", UnitPrice = 500, UnitInStock = 3 },
+        //        new Product { Id = 3, CategoryId = 2, ProductName = "Telephone", UnitPrice = 1500, UnitInStock = 2 },
+        //        new Product { Id = 4, CategoryId = 2, ProductName = "Keyboard", UnitPrice = 150, UnitInStock = 65 },
+        //        new Product { Id = 5, CategoryId = 2, ProductName = "Mouse", UnitPrice = 85, UnitInStock = 1 },
 
-            };
-        }
+        //    };
+        //}
 
         public void Add(Product product)
         {
@@ -45,7 +46,7 @@ namespace DataAccess.Concrete.InMemory
             //LINQ - Language Integrated Query
             //Lambda
             Product productToDelete =
-                _products.SingleOrDefault(p => p.Id == product.Id); //finds one element, usually id searchs
+                _products.SingleOrDefault(p => p.ProductId == product.ProductId); //finds one element, usually id searchs
 
             _products.Remove(productToDelete);
         }
@@ -57,10 +58,10 @@ namespace DataAccess.Concrete.InMemory
 
         public void Update(Product product)
         {
-            Product productToUpdate = _products.SingleOrDefault(p => p.Id == product.Id);
+            Product productToUpdate = _products.SingleOrDefault(p => p.ProductId == product.ProductId);
             productToUpdate.ProductName = product.ProductName;
             productToUpdate.CategoryId = product.CategoryId;
-            productToUpdate.UnitInStock = product.UnitInStock;
+            productToUpdate.UnitsInStock = product.UnitsInStock;
             productToUpdate.UnitPrice = product.UnitPrice; 
         }
 
@@ -75,6 +76,11 @@ namespace DataAccess.Concrete.InMemory
         }
 
         public Product Get(Expression<Func<Product, bool>> filter)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<ProductDetailDto> GetProductDetails()
         {
             throw new NotImplementedException();
         }
